@@ -1,0 +1,26 @@
+// Incluimos todas las librerias necesarias
+#include <Wire.h>
+#include "RTClib.h"
+
+// Le ponemos un nombre mas corto y facil de recordar
+RTC_DS1307 RTC;
+
+
+void setup() {
+  pinMode(13, OUTPUT); // pin 13 como salida
+  Wire.begin(); // iniciamos la comunicacion con wire
+  RTC.begin(); // iniciamos la comunicacion con RTC
+}
+
+void loop() {
+  DateTime now = RTC.now(); // extraemos tiempo y lo ponemos en una variable
+
+// comenzamos la comparacion con las condicionales if y else
+  if(now.hour() == 0 && now.minute() == 28){
+    digitalWrite(13, HIGH);
+  }
+  else if(now.hour() == 0 && now.minute() == 29){
+    digitalWrite(13, LOW);
+  }
+  delay(3000); // descanso de 3 segundos
+}

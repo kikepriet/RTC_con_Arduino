@@ -1,8 +1,8 @@
 # RTC_con_Arduino
-Función con Arduino según la hora y minutos
+Función con Arduino según la hora y minutos.
 Este proyecto lo realicé buscando ¿cómo programar módulo rtc con arduino? en YouTube, agregué un módulo relé y una bomba para micro riego.
 Ahora disfruto de sistema de riego automático y programable
-Saludos! Espero que lo disfrutes.
+¡Saludos!. Espero que lo disfrutes.
 
 Instrucciones.
 Las conecciones entre Arduino UNO y RTC son:

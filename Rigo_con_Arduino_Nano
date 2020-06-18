@@ -1,0 +1,43 @@
+// Recuerda las siguientes conecciones GND -> GND, VCC -> 5V, SDA -> A4 y SCL -> A5
+
+// Incluimos todas las librerias necesarias
+#include <Wire.h>
+#include <RTClib.h>
+
+// Le ponemos un nombre mas corto y facil de recordar
+RTC_DS1307 RTC;
+
+
+void setup() {
+  pinMode(4, OUTPUT); // pin 4 como salida, conectamos el relay de la bomba de riego
+  Wire.begin(); // iniciamos la comunicacion con wire
+  RTC.begin(); // iniciamos la comunicacion con RTC
+  // RTC.adjust(DateTime(__DATE__, __TIME__)); // Comentar esta linea la segunda vez que se inicia el programa
+  Serial.begin(9600);
+}
+
+void loop() {
+  DateTime now = RTC.now(); // extraemos tiempo y lo ponemos en una variable
+
+  Serial.print(now.year(), DEC); // Año
+  Serial.print("/");
+  Serial.print(now.month(), DEC);
+  Serial.print("/");
+  Serial.print(now.day(), DEC);
+  Serial.print(" ");
+  Serial.print(now.hour(), DEC);
+  Serial.print(":");
+  Serial.print(now.minute(), DEC);
+  Serial.print(":");
+  Serial.print(now.second(), DEC);
+  Serial.println();
+
+// comenzamos la comparacion con las condicionales if y else
+  if(now.hour() == 23 && now.minute() == 50){
+    digitalWrite(4, HIGH);
+  }
+  else if(now.hour() == 23 && now.minute() == 51){
+    digitalWrite(4, LOW);
+  }
+  delay(1000); // descanso de 1 segundos
+}

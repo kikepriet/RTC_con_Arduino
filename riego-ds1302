@@ -1,0 +1,46 @@
+// CONNECTIONS:
+// DS1302 CLK/SCLK --> 5
+// DS1302 DAT/IO --> 4
+// DS1302 RST/CE --> 2
+// DS1302 VCC --> 3.3v - 5v
+// DS1302 GND --> GND
+
+// Bomba de agua en el pin13
+
+// Incluimos todas las librerias necesarias
+#include <RtcDS1302.h>
+
+
+ThreeWire myWire(4,5,2); // IO, SCLK, CE
+RtcDS1302<ThreeWire> Rtc(myWire);
+
+
+void setup() {
+  // seteamos puerto serial, rtc y bomba de agua
+  pinMode(13, OUTPUT);
+  Serial.begin(57600);
+  Rtc.Begin();
+
+}
+
+void loop() {
+  // obtenemos la hora
+   RtcDateTime now = Rtc.GetDateTime();
+  
+  Serial.print(now.Hour());
+  Serial.print(":");
+  Serial.print(now.Minute());
+  Serial.print(":");
+  Serial.print(now.Second());
+  Serial.println("");
+
+  // condicional para regar por 1 minuto
+  if(now.Hour() == 18 && now.Minute() == 23){
+    digitalWrite(13, HIGH);
+    }
+    else {
+      digitalWrite(13, LOW);
+      }
+  delay(1000);
+
+}
